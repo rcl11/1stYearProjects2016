@@ -4,30 +4,30 @@ As discussed in the introductory slides, your first task is to get used to the f
 
 Instructions:
 
-1) Make a directory in your home area called "project" (or similar) containing the file 'signal.root' and these instructions and cd to it. To analyse this data file, you will need to use Root. This can be opened by typing root and exited by typing ".q".
+1) Make a directory in your home area called "project" (or similar) containing the file 'VBFHToTauTau_M-125_mt_2015.root(SUSYGluGluToBBHToTauTau_M-700_mt_2015.root)' and these instructions and cd to it. To analyse this data file, you will need to use Root. This can be opened by typing root and exited by typing ".q".
 
-2) You can now open up signal.root by typing root -l signal.root. Once it is opened you should start a TBrowser by typing "TBrowser T" (in Root, T stands for 'Toolkit', and is slapped on to everything).  Click on "ROOT files" in the panel on the left, and you should see signal.root. If you double click on that, you will see a folder called 'ntuple'. Double click on that, and you will see all the information available to you for this file. You will see entries with index _1, _2, and _3, which correspond to the first, second and third muon/tau (noted by starting letter "m" or "t"). The variables themselves are pt, eta, phi, E.
+2) You can now open up VBFHToTauTau_M-125_mt_2015.root(SUSYGluGluToBBHToTauTau_M-700_mt_2015.root) by typing root -l VBFHToTauTau_M-125_mt_2015.root(SUSYGluGluToBBHToTauTau_M-700_mt_2015.root). Once it is opened you should start a TBrowser by typing "TBrowser T" (in Root, T stands for 'Toolkit', and is used to name different ROOT objects and classes).  Click on "ROOT files" in the panel on the left, and you should see VBFHToTauTau_M-125_mt_2015.root(SUSYGluGluToBBHToTauTau_M-700_mt_2015.root). If you double click on that, you will see a folder called 'ntuple'. Double click on that, and you will see all the information available to you for this file. You will see entries with index _1, _2, and _3, which correspond to the first, second and third muon/tau candidate in our events (noted by starting letter "m" or "t"). The variables themselves are pt, eta, phi, E(energy).
 
 3) In addition to looking at existing variables, you will have to calculate new ones. To do this, an easy way is to use a class. Root can generate one automatically. In the Root window, type:
 
 TChain *chain = new TChain("ntuple","")   
-chain->Add("signal.root/ntuple")
+chain->Add("VBFHToTauTau_M-125_mt_2015.root(SUSYGluGluToBBHToTauTau_M-700_mt_2015.root)/ntuple")
 chain->MakeClass("Analysis")
 
-hitting enter after each line. If you called your folder something other than 'project', substitute that in.
+hitting enter after each line. 
 
-4) Have a look at Analysis.C. This is a standard C++ code, so some of it may be familiar. The code contains a section starting with 'void Analysis::Loop()': this code can be used to loop over all events in the file ntuple.root (note the for loop). At the moment, the for loop is empty so the code does nothing. I would like you to modify this code to plot a histogram of the azimuthal angle of muon 1. To start with,  just above the for loop, declare this variable (ie 'double mu1phi;').  You won't have to declare any of the variables in signal.root (such as mpt_1, tpt_1, mphi_1, etc.) because this has been done for you in Analysis.h
+4) Have a look at Analysis.C. This is standard C++ code, so some of it may be familiar. The code contains a section starting with 'void Analysis::Loop()': this code can be used to loop over all events in the file ntuple.root (note the for loop). At the moment, the for loop is empty so the code does nothing. I would like you to modify this code to create a histogram of the azimuthal angle of muon candidate 1. To start with,  just above the for loop, declare this variable (ie 'double mu1phi;').  You won't have to declare any of the variables in VBFHToTauTau_M-125_mt_2015.root(SUSYGluGluToBBHToTauTau_M-700_mt_2015.root) (such as mpt_1, tpt_1, mphi_1, etc.) because this has been done for you in Analysis.h
 
 5) You also need to declare a histogram before the for loop. In Root, this is done as follows:
 
-TH1D* histo1 = new TH1D("hmu1phi","#phi (Muon 1)", 32,0,3.2);
+TH1D* histo1 = new TH1D("hmu1phi","#phi (Muon 1)", 64,-3.2,3.2);
 
 TH1D is the name of the histogram class: H for histogram, 1 because it is 1 dimensional, and D because it will be filled with doubles.
 
-histo1 will be the name of the histogam object; we will refer to histo1 in the code.
+histo1 will be the name of the histogram object; we will refer to histo1 in the code.
 hmu1phi  is the name of this histogram.
-#phi (Muon 1) will be printed as the title of the histogram when it is drawn. Note the # tells root to print the greek character phi, similarly to the backslash in latex.
-The histogram will have 32 bins, with the x-axis running from 0 to 3.2.
+#phi (Muon 1) will be printed as the title of the histogram when it is drawn. Note the # tells root to print the greek character phi, similarly to the backslash in LaTeX.
+The histogram will have 64 bins, with the x-axis running from -3.2 to 3.2.
 The histogram is filled with the value as follows:
 
 histo1->Fill(mphi_1_);
@@ -47,18 +47,28 @@ a.Loop()
 
 And see what happens.
 
-9) If it doesn't work (which is common on the first attempt), go back through and check for missing semi-colons and so on. You can also use cout statements to work out where the code is crashing. If you are stuck, you can find me in my office.
+9) If it doesn't work (which is common on the first attempt), go back through and check for missing semi-colons and so on. You can also use cout statements to work out where the code is crashing. 
 
-10) If it does work, you should now have a Histogram of mu1phi, with a fairly revolting colour scheme. You can find how to plot the histogram in different colours at the root website (http://root.cern.ch), try experimenting with the options to make a more aesthetically pleasing plot. 
+10) If it does work, you should now have a Histogram of mu1phi, but it wont be a very pretty histogram. You can find how to plot the histogram in different colours at the root website (http://root.cern.ch), try experimenting with the options to make a more aesthetically pleasing plot. Think about what you learned in labs about decent scientific plots:
+- Do the axes have labels? If so are they clear and large enough?
+- Are all the data clearly visible? 
 
 11) I would also like you to calculate a variable called the invariant mass of the first muon+tau pair: this is given by:
 
-m_mumu*m_mumu = (mu1E+tau1E)*(mu1E+tau1E) - (mu1px+tau1px)*(mu1px+tau1px) - (mu1py+tau1py)*(mu1py+tau1py) - (mu1pz+tau1pz)*(mu1pz+tau1pz)
+m_mutau =sqrt( (mu1E+tau1E)*(mu1E+tau1E) - (mu1px+tau1px)*(mu1px+tau1px) - (mu1py+tau1py)*(mu1py+tau1py) - (mu1pz+tau1pz)*(mu1pz+tau1pz))
 
-To calculate this you will need to think about how to relate the pT, eta and phi values to px and py - the x and y components of the momenta
+To calculate this you will need to think about how to relate the pT, eta and phi values to px and py - the x and y components of the momenta. Use the information in the slides I showed you.
 
 12) Plot this variable in a 1-D histogram. What does the shape look like, given the origin of the events that we are studying is it what you would expect?
 
-If you have any problems, or if these instructions are unclear, please feel free to ask me, either in my office (512 Blackett) or by e-mail (p.dunne12@imperial.ac.uk).
+If you have any problems, or if these instructions are unclear, please feel free to ask me, either in my office or by email.
 
-Also of use is the Root website: http://root.cern.ch
+Also of use is the Root website: http://root.cern.ch and you can heavily make use of google, a large number of people use ROOT and common questions will be answered online.
+
+Next steps:
+
+How does your invariant mass distribution look if you use the highest pT pair which have opposite charges? 
+
+Can you ensure your mu+tau are well separated (e.g. try Delta R = sqrt(deltaPhi^2 + deltaEta^2) > 0.5)?
+
+Try to keep your code neat and readable and backed up with some form of version control if possible. To show me your results, make as many plots as possible and consider putting them in slides with explanations of what they show using powerpoint. 
