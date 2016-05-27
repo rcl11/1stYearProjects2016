@@ -1,0 +1,49 @@
+First Year Project: Session 2.
+
+Now I have given you two new files, one corresponding to signal and one to background. Now the selection of the most appropriate mu+tau pair has been done for you. The branches in the tree and an explanation of what they contain is listed below:
+
+"event" - event number
+"wt" - an event weight - you dont need to worry about this
+"mpt_1" - selected muon pt
+"tpt_1" - selected tau pt
+"meta_1" - selected muon eta
+"teta_1" - selected tau eta
+"mphi_1" - selected muon phi
+"tphi_1" - selected tau phi
+"mE_1" - selected muon energy
+"tE_1" - selected tau energy
+"mq_1" - selected muon charge
+"tq_1" - selected tau charge
+"mdxy_1" - impact parameter in xy of muon
+"tdxy_1" - impact parameter in xy of tau
+"mdz_1" - impact parameter in z of muon
+"tdz_1" - impact parameter in z of tau
+"miso_1" - isolation of muon
+"tiso_1" - isolation of tau
+"dphi" - delta phi - difference in phi angle between muon and tau
+"deta" - delta eta - difference in eta angle between muon and tau
+"m_vis" - invariant mass of mu+tau
+"pt_tt" - di-tau pt
+"mt_2" - transverse mass between tau and MET
+"mt_1" - transverse mass between muon and MET
+"met" - missing energy
+"n_jets" - number of jets in the event
+"n_bjets" - number of b-tagged jets in the event (likely to have come from a b-quark)
+"jpt_1" - leading jet pt
+"jeta_1" - leading jet eta
+"jphi_1" - leading jet phi
+"bpt_1" - leading b-jet pt
+"beta_1" - leading b-jet eta
+"bphi_1" - leading b-jet phi
+
+Try making some plots of some of these quantities by running over signal and background separately. The next task would be to save each of the signal and background histograms to a root file, so that you can then write a script to open them both up and plot them on top of each other. See if you can figure out how you would do this using examples on the root webpages, and if necessary I will give you an example script.
+
+The files can be found in the Step2 folder in my public area. For the high mass "extra Higgs boson" project, use:  SUSYGluGluToBBHToTauTau_M-700 for signal and WJetsToLNu-LO for background. For the "Standard Model" Higgs boson use VBFHToTauTau_M-125 for signal and DYJetsToLL_M-50-LO-ext for background.
+
+An example of a ROOT macro to overlay the two plots can be found in this folder plot_macro.C. To run this macro, place it in the same place as you have been storing your Analysis.C and Analysis.h. Then from within root the command to run it is:
+
+.x <PATHTOMACRO>/plot_macro.C
+
+Elaborate on this script to make plots overlaying signal and background for all of the above variables. You may find it helpful to normalise the histograms to unit area, which can be done making use of ->Scale() and ->Integral() functions. This allows you to compare just the shapes of the variables rather than the overall normalisation. 
+
+Which variables do you find show good discrimination between signal and background? Which show poor discrimination? 
