@@ -46,4 +46,11 @@ An example of a ROOT macro to overlay the two plots can be found in this folder 
 
 Elaborate on this script to make plots overlaying signal and background for all of the above variables. You may find it helpful to normalise the histograms to unit area, which can be done making use of ->Scale() and ->Integral() functions. This allows you to compare just the shapes of the variables rather than the overall normalisation. 
 
-Which variables do you find show good discrimination between signal and background? Which show poor discrimination? 
+Which variables do you find show good discrimination between signal and background? Which show poor discrimination?
+
+Once you have worked out some variables which show good discrimination between signal and background, you can think about some sort of selection based on these variables which will select a large fraction of signal compared to rejecting background. For example say you found the mu-tau mass looks quite different between signal and background. Is the value generally higher for signal or background? This could motivate selecting events which have m_vis > some value or < some value, depending on which direction collects the most signal. This is what i mean when i refer to a "cut"
+
+To try out some selection of cuts by putting an "if" statement inside the event loop, i.e. only fill your histograms if they pass some selection. Then you can use your plot macro or some similar code to look at the created histograms. This time, instead of normalising both histograms to 1 and overlaying them, keep the nromasalition since this includes the information about the fraction of signal and background which is lost by cutting. Instead, print to screen the value of signal/sqrt(background). This is a measure of the "significance" of your cuts. Calculate the significance of the cuts for the following cases:
+- No cuts, so whatever is already in the tree files
+- One cut, on whatever you think is your best discriminating variable
+- 2 or more cuts, using a combination of a few variables
