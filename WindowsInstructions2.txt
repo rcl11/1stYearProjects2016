@@ -54,3 +54,25 @@ To try out some selection of cuts by putting an "if" statement inside the event 
 - No cuts, so whatever is already in the tree files
 - One cut, on whatever you think is your best discriminating variable
 - 2 or more cuts, using a combination of a few variables
+
+You can now try comparing this to the result of a multivariate analysis done by a computer for you. (NOTE: I havent tested this on the Windows machines yet, but I am informed it should work). I have created a script for you called ClassTest.C (in this directory). It is a long a complex script, but all you need to note is:
+ - Lines 183-188 list the variables you want it to try and use to try cuts on
+ - Lines 204 and 206 list the names of the files containing the trees for signal and background
+ - The file lists lots of different possible minimisation methods, but I have left only one turned on which is called "Boosted Decision Tree", or BDT
+
+ To run the script, simply proceed like when you run the plot macro, and do:
+.x <PATHTOMACRO>/ClassTest.C
+
+This will take a few minutes to run, and print a lot of information to screen. One thing to look out for is a line which begins:
+
+--- Factory                  : Ranking input variables (method specific)...
+--- BDT                      : Ranking result (top variable is best ranked)
+
+This will then tell you which variables the BDT thinks are the most useful for discriminating. How does this compare to what you found from the overlay plots.
+
+Finally I prepared a script for you which can be used to analyse the output. The result of the minimisation is to calculate a BDT discriminator value for signal and background. You can then have a look at how well you could distinguish signal and background from cuting on this discriminator, and compare to your attempts with the individual variables. 
+
+The discriminator is stored in the output file from the ClassTest.C macro, which is called Test_BDT.root. Unfortunately the BDT discriminator plots are normalised to the same area, so we have to undo this and scale back to the original area to calculate values of S/root(B) to compare with the ones you calcualted earlier. I have done an example of this for you in TMVA_tester.C. Note lines 14 and 15 need to contain the integrals of the signal and background histograms before any cuts are applied - this example contains the numbers for the VBF signal and DYJets background, you will need different numbers for the other example. 
+
+Run the TMVA_tester.C macro and compare the value it prints out with the numbers you calculated earlier with your own attempt at cuts.
+

@@ -182,6 +182,7 @@ void ClassTest( TString myMethodList = "" )
    // [all types of expressions that can also be parsed by TTree::Draw( "expression" )]
    factory->AddVariable( "mpt_1","","units", 'F' );
    factory->AddVariable( "met", "met", "", 'F' );
+   factory->AddVariable( "m_vis", "m_vis", "", 'F' );
    factory->AddVariable( "tpt_1","","units", 'F' );
    factory->AddVariable( "meta_1","","units", 'F' );
    factory->AddVariable( "teta_1","","units", 'F' );
