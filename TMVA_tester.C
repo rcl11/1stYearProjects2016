@@ -20,9 +20,9 @@ h2->SetLineColor(kRed);
 h2->Draw("same");
 
 
-std::cout << "Applying cut of >0.2 on BDT discriminator yields S/B= " << h2->Integral(h2->GetXaxis()->FindBin(0.2),h2->GetNbinsX())/h1->Integral(h1->GetXaxis()->FindBin(0.2),h1->GetNbinsX()) << std::endl;
+std::cout << "Applying cut of >0.2 on BDT discriminator yields S/B= " << h2->Integral(h2->GetXaxis()->FindBin(0.2),h2->GetNbinsX())/sqrt(h1->Integral(h1->GetXaxis()->FindBin(0.2),h1->GetNbinsX())) << std::endl;
 
-std::cout << "The S/B without any cuts is = " << h2->Integral()/h1->Integral() << std::endl;
+std::cout << "The S/B without any cuts is = " << h2->Integral()/sqrt(h1->Integral()) << std::endl;
 
 std::cout << "How do these numbers compare to your attempts?" << std::endl;
 
