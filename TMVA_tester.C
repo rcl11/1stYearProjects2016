@@ -13,6 +13,8 @@ h1->Scale(1/h1->Integral());
 h2->Scale(1/h2->Integral());
 h2->Scale(3.413400e+04);
 h1->Scale(4.822070e+05);
+//h2->Scale(6753);
+//h1->Scale(7306);
 
 TCanvas *c1 = new TCanvas("c1", "Invariant mass plot");
 h1->Draw();

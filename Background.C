@@ -35,6 +35,8 @@ void Background::Loop()
 
    Long64_t nbytes = 0, nb = 0;
    TH1D* histo1 = new TH1D("Muon + Tau", "Invariant Mass (Muon_1+Tau_1)", 20, 0,200);
+   TH1D* histo2 = new TH1D("taupt1", "taupt1", 20, 0,200);
+   TH1D* histo3 = new TH1D("mupt1", "mupt1", 20, 0,200);
    histo1->SetFillStyle(3005);
    histo1->SetFillColor(kBlue);
    histo1->GetYaxis()->SetTitle("Events");
@@ -45,9 +47,13 @@ void Background::Loop()
       if (ientry < 0) break;
       nb = fChain->GetEntry(jentry);   nbytes += nb;
 	  histo1->Fill(m_vis);
+	  histo2->Fill(tpt_1);
+	  histo3->Fill(mpt_1);
       // if (Cut(ientry) < 0) continue;
    }
    
    TFile *f1 = new TFile("background.root", "RECREATE");
    histo1->Write("mvis_background");
+   histo2->Write("tpt1_background");
+   histo3->Write("mpt1_background");
 }
